@@ -1,8 +1,13 @@
 from manim import *
+import numpy as np
+config.pixel_height = 1080
+config.pixel_width = 1920
+config.frame_height = 18.0
+config.frame_width =32.0
 
 class curve(Scene):
-    config.pixel_height = 1080
-    config.pixel_width = 1920
+    config.pixel_height = 2000
+    config.pixel_width = 2000
     config.frame_height = 18.0
     config.frame_width =32.0
 

@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/dev/manim/media/videos/differentiation/480p15/partial_movie_files/GraphAreaPlot/1185818338_3220803516_223132457.mp4'

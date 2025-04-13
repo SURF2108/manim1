@@ -1,0 +1,9 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1714860797_313024286_223132457.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_3814659333_1326803840.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_2814389611_2358810818.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_376902965_223132457.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_2534745637_3116981558.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_810974661_3116981558.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_1844085625_3116981558.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation/1080p60/partial_movie_files/ImageExample/1759488168_2844360058_2602901474.mp4'

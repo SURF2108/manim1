@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/dev/manim/media/videos/project/1080p60/partial_movie_files/CosineWaveY/1714860797_2688965532_3975633672.mp4'

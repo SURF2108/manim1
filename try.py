@@ -1,64 +1,114 @@
 from manim import *
 
-class CustomGraphLabel(Scene):
+class diff_slope(Scene):
     def construct(self):
-        # Create Axes
+        # Axes
         axes = Axes(
-            x_range=[-3, 3, 1], y_range=[-2, 8, 2])
+            x_range=[0, 3, 0.5],
+            y_range=[0, 9, 1],
+            x_length=6,
+            y_length=4,
+            axis_config={"include_tip": False},
+        )
+        axes.add_coordinates()
+        self.play(Create(axes))
 
-        # Define Graph
-        graph = axes.plot(lambda x: x**2, color=RED)
+        # Plot parabola
+        parabola = axes.plot(lambda x: x**2, x_range=[0, 3], color=BLUE)
+        self.play(Create(parabola))
 
-        # Manually Position a Label
-        label = MathTex("y = x^2").move_to(axes.c2p(1.5, 3.5))
+        # Constants and tracker
+        x = 1
+        h_tracker = ValueTracker(1)
 
-        # Animate
-        self.play(Create(axes), Create(graph), Write(label))
-        self.wait(2)
+        # Dot 1 (static)
+        dot1 = Dot(axes.c2p(x, x**2), color=YELLOW)
+
+        # Dot 2 (moves with h_tracker)
+        dot2 = always_redraw(lambda: Dot(
+            axes.c2p(x + h_tracker.get_value(), (x + h_tracker.get_value())**2),
+            color=YELLOW
+        ))
+
+        # Dashed lines for dot1
+        dl_x1 = DashedLine(axes.c2p(x, 0), axes.c2p(x, x**2), color=WHITE)
+        dl_y1 = DashedLine(axes.c2p(0, x**2), axes.c2p(x, x**2), color=WHITE)
+
+        # Dashed lines for dot2
+        dl_x2 = always_redraw(lambda: DashedLine(
+            axes.c2p(x + h_tracker.get_value(), 0),
+            dot2.get_center(), color=WHITE
+        ))
+        dl_y2 = always_redraw(lambda: DashedLine(
+            axes.c2p(0, (x + h_tracker.get_value())**2),
+            dot2.get_center(), color=WHITE
+        ))
 
         
-def move_dot_and_draw_curve(self):
-        orbit = self.circle
-        origin_point = self.origin_point
+        def get_extended_secant():
+            p1 = dot1.get_center()
+            p2 = dot2.get_center()
+            direction = p2 - p1
+            if np.linalg.norm(direction) == 0:
+                direction = np.array([1e-6, 0, 0])  # Avoid divide-by-zero
+            unit_dir = direction / np.linalg.norm(direction)
+            length = 6  # Total visual length of the secant line
+            center = (p1 + p2) / 2
+            start = center - unit_dir * (length / 2)
+            end = center + unit_dir * (length / 2)
+            return Line(start, end, color=RED)
 
-        dot = Dot(radius=0.08, color=YELLOW)
-        dot.move_to(orbit.point_from_proportion(0))
-        self.t_offset = 0
-        rate = 0.25
+        secant = always_redraw(get_extended_secant)
 
-        def go_around_circle(mob, dt):
-            self.t_offset += (dt * rate)
-            # print(self.t_offset)
-            mob.move_to(orbit.point_from_proportion(self.t_offset % 1))
+        # Horizontal line between the x-coordinates of the two dots 
+        h_line_for_brace = always_redraw(lambda: Line(
+            start=axes.c2p(x, 0),
+            end=axes.c2p(x + h_tracker.get_value(), 0),
+            color=GREY
+        ))
 
-        def get_line_to_circle():
-            return Line(origin_point, dot.get_center(), color=BLUE)
+        # Dynamic brace 
+        brace = always_redraw(lambda: (
+            Brace(h_line_for_brace, direction=UP, color=WHITE,buff = 0)
+            if h_tracker.get_value() > 0.02 else VGroup()
+        ))
 
-        def get_line_to_curve():
-            x = self.curve_start[0] + self.t_offset * 4
-            y = dot.get_center()[1]
-            return Line(dot.get_center(), np.array([x,y,0]), color=YELLOW_A, stroke_width=2 )
+        
+
+        brace_label = Text('h').next_to(brace,UP*0.3)
+        brace_label.scale(0.4)
+
+        lx = Text('x').next_to(dot1,RIGHT*0.5)
+        lfx = Text('f(x)').next_to(dot1,(LEFT+UP)*0.5)
+
+        lx.scale(0.4)
+        lfx.scale(0.4)
+
+        lxh = Text('x+h').next_to(dot2,RIGHT*0.5)
+        lfxh = Text('f(x+h)').next_to(dot2,(LEFT+UP)*0.5)
+
+        lxh.scale(0.4)
+        lfxh.scale(0.4)
 
 
-        self.curve = VGroup()
-        self.curve.add(Line(self.curve_start,self.curve_start))
-        def get_curve():
-            last_line = self.curve[-1]
-            x = self.curve_start[0] + self.t_offset * 4
-            y = dot.get_center()[1]
-            new_line = Line(last_line.get_end(),np.array([x,y,0]), color=YELLOW_D)
-            self.curve.add(new_line)
+        # After all creations and animations
+        everything = VGroup(axes, parabola, dot1, dot2, dl_x1, dl_y1, dl_x2, dl_y2, secant, h_line_for_brace, brace, brace_label,lx,lfx,lxh,lfxh)
+        self.play(everything.animate.shift(UP * 1.5))  # Shift up by 1.5 units
 
-            return self.curve
 
-        dot.add_updater(go_around_circle)
-
-        origin_to_circle_line = always_redraw(get_line_to_circle)
-        dot_to_curve_line = always_redraw(get_line_to_curve)
-        sine_curve_line = always_redraw(get_curve)
-
-        self.add(dot)
-        self.add(orbit, origin_to_circle_line, dot_to_curve_line, sine_curve_line)
-        self.wait(8.5)
-
-        dot.remove_updater(go_around_circle)
+        # Animation sequence
+        self.play(Create(secant))                                           # 1. Secant appears
+        self.wait(0.5)
+        self.play(FadeIn(dot1), FadeIn(dot2))                               # 2. Dots appear
+        self.wait(0.5)
+        self.play(Create(dl_x1), Create(dl_y1))                             # 3. Dashed lines for dot1
+        self.play(Create(dl_x2), Create(dl_y2))                             # 4. Dashed lines for dot2
+        self.wait(0.5)
+        self.add((h_line_for_brace), (brace), (brace_label))  # 5. Brace + label
+        self.wait(0.5)
+        self.play(FadeIn(lx),FadeIn(lfx),FadeIn(lxh),FadeIn(lfxh))
+        self.wait(2)
+        self.play(FadeOut(lx),FadeOut(lfx),FadeOut(lxh),FadeOut(lfxh),FadeOut(brace_label))
+        self.wait(0.5)
+        self.play(h_tracker.animate.set_value(0), run_time=2)              # 6. Move dot2 toward dot1
+        self.wait()

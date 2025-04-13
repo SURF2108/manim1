@@ -1,0 +1,13 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3009363096_313024286_223132457.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_1978781302_3514851826.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_2245511897_223132457.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_3137649722_208259481.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_2241175812_208259481.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_1245216585_2627674179.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_3717333030_3654130516.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_1391709230_3385574284.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_3051438301_223132457.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_2834709167_1301427323.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_2957267705_815289245.mp4'
+file 'file:C:/dev/manim/media/videos/differentiation-try/1080p15/partial_movie_files/ImageExample/3263469400_3975295525_2873729818.mp4'
